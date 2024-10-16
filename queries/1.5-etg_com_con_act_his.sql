@@ -1,0 +1,7 @@
+SELECT {mes_rcc} AS Cod_Mes, SBS.*
+FROM {tabla} AS SBS
+WHERE SBS.Codi_SBS IN(
+    SELECT FIL.Codi_SBS
+    FROM PRIMEROS_FILTROS_CODI AS FIL
+    GROUP BY FIL.Codi_SBS
+)

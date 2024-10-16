@@ -1,0 +1,31 @@
+name: Upload Files to Snowflake
+
+on:
+  push:
+    branches:
+      - prd
+
+jobs:
+  upload-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Instalar Snowflake Connector
+      - name: Install Snowflake Connector
+        run: pip install snowflake-connector-python
+
+      # Subir archivos .sql al Stage de Snowflake
+      - name: Upload Files to Snowflake Stage
+        run: |
+          python upload_to_stage.py
+        env:
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+          SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}

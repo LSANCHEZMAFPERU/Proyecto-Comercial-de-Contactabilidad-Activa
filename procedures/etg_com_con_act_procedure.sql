@@ -1,0 +1,10 @@
+CREATE OR REPLACE PROCEDURE {procedure_name}()
+RETURNS STRING
+LANGUAGE PYTHON
+RUNTIME_VERSION = '3.11'
+PACKAGES = {procedure_packages}
+EXECUTE AS CALLER
+AS
+$$
+{python_script}
+$$;
